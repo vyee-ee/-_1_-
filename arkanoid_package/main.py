@@ -6,14 +6,7 @@ import pygame
 # Initialize the pygame mixer for playing sounds
 pygame.mixer.init()
 
-# Load the sound for block breaking
-block_break_sound = None
-try:
-    block_break_sound = pygame.mixer.Sound('clash-royale-laugh.mp3')  # Replace with your actual block break sound file path
-    background_music = pygame.mixer.Sound('C418_-_Subwoofer_Lullaby_30921632.mp3')  # Replace with your actual background music file path
-    background_music.set_volume(0.5)
-except pygame.error as e:
-    print(f"Error loading sound: {e}")
+from import config *
 
 class Ball:
     def __init__(self, canvas, platform, blocks, color):
