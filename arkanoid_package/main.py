@@ -3,7 +3,7 @@ import time
 import random
 import pygame
 
-# Initialize the pygame mixer for playing sounds
+# Инициализируем микшер pygame для воспроизведения звуков
 pygame.mixer.init()
 
 from import config *
@@ -34,7 +34,7 @@ class Ball:
                     self.canvas.delete(block.rect)
                     self.blocks.remove(block)
 
-                    # Play the block break sound
+                    # Воспроизводит звук разрыва блока
                     if block_break_sound:
                         block_break_sound.play()
 
@@ -68,10 +68,10 @@ class Platform:
         self.canvas.bind_all('<KeyRelease-Right>', self.stop)
 
     def left(self, event):
-        self.x = -4  # Doubled the speed from -2 to -4
+        self.x = -4  # Удвоена скорость с -2 до -4
 
     def right(self, event):
-        self.x = 4  # Doubled the speed from 2 to 4
+        self.x = 4  # Увеличена скорость вдвое - с 2 до 4
 
     def stop(self, event):
         self.x = 0
@@ -92,19 +92,19 @@ class Block:
 def create_blocks(canvas, colors):
     blocks = []
     y_offset = 50
-    for i in range(5):  # Create 5 rows of blocks
-        for j in range(10):  # Each row has 10 blocks
+    for i in range(5):  # Создаем 5 рядов блоков
+        for j in range(10):  # Каждый ряд состоит из 10 блоков
             blocks.append(Block(canvas, j*50, y_offset, j*50+45, y_offset+20, random.choice(colors)))
         y_offset += 25
     return blocks
 
 def play_music():
     try:
-        background_music.play(-1)  # Play the music indefinitely
+        background_music.play(-1)  # Воспроизводим музыку бесконечно
     except pygame.error as e:
         print(f"Error playing music: {e}")
 
-# Initialize main window
+# Инициализируем главное окно
 window = Tk()
 window.title("Arkanoid")
 window.resizable(0, 0)
@@ -119,7 +119,7 @@ blocks = create_blocks(canvas, colors)
 platform = Platform(canvas, 'green')
 ball = Ball(canvas, platform, blocks, 'red')
 
-play_music()  # Start playing music
+play_music()  # Начинаем воспроизводить музыку
 
 while True:
     if not ball.touch_bottom:
@@ -128,7 +128,7 @@ while True:
     else:
         break
 
-    if not blocks:  # If all blocks are broken, end the game
+    if not blocks:  # Если все блоки разбиты, завершаем игру
         break
 
     window.update()
@@ -136,4 +136,4 @@ while True:
 
 window.mainloop()
 
-pygame.mixer.music.stop()  # Stop the music when the game ends
+pygame.mixer.music.stop()  # Выключаем музыку, когда игра заканчивается
