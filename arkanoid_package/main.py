@@ -9,7 +9,7 @@ pygame.mixer.init()
 from import config *
 
 class Ball:
-    def __init__(self, canvas, platform, blocks, color):
+    def __init__(self, canvas, platform, blocks, color): '''Инициализация представления и параметров шара'''
         self.canvas = canvas
         self.platform = platform
         self.blocks = blocks
@@ -19,14 +19,14 @@ class Ball:
         self.y = -1
         self.touch_bottom = False
 
-    def touch_platform(self, ball_pos):
+    def touch_platform(self, ball_pos): '''Проверяет, касается ли шар платформы'''
         platform_pos = self.canvas.coords(self.platform.rect)
         if ball_pos[2] >= platform_pos[0] and ball_pos[0] <= platform_pos[2]:
             if ball_pos[3] >= platform_pos[1] and ball_pos[3] <= platform_pos[3]:
                 return True
         return False
 
-    def touch_block(self, ball_pos):
+    def touch_block(self, ball_pos): '''Проверяет, касается ли шар блока'''
         for block in self.blocks:
             block_pos = self.canvas.coords(block.rect)
             if ball_pos[2] >= block_pos[0] and ball_pos[0] <= block_pos[2]:
@@ -41,7 +41,7 @@ class Ball:
                     return True
         return False
 
-    def draw(self):
+    def draw(self): '''Обновляет позицию шара на экране'''
         self.canvas.move(self.oval, self.x, self.y)
         pos = self.canvas.coords(self.oval)
         if pos[1] <= 0:
@@ -58,7 +58,7 @@ class Ball:
             self.x = -3
 
 class Platform:
-    def __init__(self, canvas, color):
+    def __init__(self, canvas, color): '''Инициализация платформы'''
         self.canvas = canvas
         self.rect = canvas.create_rectangle(230, 300, 330, 310, fill=color)
         self.x = 0
@@ -67,16 +67,16 @@ class Platform:
         self.canvas.bind_all('<KeyPress-Right>', self.right)
         self.canvas.bind_all('<KeyRelease-Right>', self.stop)
 
-    def left(self, event):
+    def left(self, event): '''Устанавливает скорость движения платформы влево'''
         self.x = -4  # Удвоена скорость с -2 до -4
 
-    def right(self, event):
+    def right(self, event):'''Устанавливает скорость движения платформы вправо'''
         self.x = 4  # Увеличена скорость вдвое - с 2 до 4
 
-    def stop(self, event):
+    def stop(self, event):'''Останавливает движение платформы'''
         self.x = 0
 
-    def draw(self):
+    def draw(self):'''Обновляет позицию платформы на экране'''
         self.canvas.move(self.rect, self.x, 0)
         pos = self.canvas.coords(self.rect)
         if pos[0] <= 0:
@@ -85,11 +85,11 @@ class Platform:
             self.x = 0
 
 class Block:
-    def __init__(self, canvas, x1, y1, x2, y2, color):
+    def __init__(self, canvas, x1, y1, x2, y2, color):'''Инициализация блока'''
         self.canvas = canvas
         self.rect = canvas.create_rectangle(x1, y1, x2, y2, fill=color)
 
-def create_blocks(canvas, colors):
+def create_blocks(canvas, colors):'''Создание блоков в заданном количестве и цветах'''
     blocks = []
     y_offset = 50
     for i in range(5):  # Создаем 5 рядов блоков
@@ -98,7 +98,7 @@ def create_blocks(canvas, colors):
         y_offset += 25
     return blocks
 
-def play_music():
+def play_music():'''Воспроизводит фоновую музыку'''
     try:
         background_music.play(-1)  # Воспроизводим музыку бесконечно
     except pygame.error as e:
